@@ -22,7 +22,7 @@ Future<dynamic> showConfirmationDialog(BuildContext context, {required String co
               onPressed: () {
                 Navigator.pop(context, false);
               },
-              child: Text("Cancelar"),
+              child: const Text("Cancelar"),
             ),
             TextButton(
               onPressed: () {
