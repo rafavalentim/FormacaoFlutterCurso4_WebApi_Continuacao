@@ -1,4 +1,11 @@
 {
+  "users": [
+    {
+      "email": "oprota@gmail.com",
+      "password": "$2a$10$2qROKVXekRc/ePnGIbxDC.45uExz6nzlepuJdkgC69cUGPgpDC9Ay",
+      "id": 1
+    }
+  ],
   "learnhttp": {},
   "journals": [
     {

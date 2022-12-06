@@ -5,6 +5,10 @@ import 'package:http_interceptor/http/http.dart';
 import '../models/journal.dart';
 import 'http_interceptors.dart';
 
+//Comando para rodar o json server com as todas definidas no routes.json.
+//json-server-auth --watch -host SEU_IP_AQUI db.json -r routes.json
+
+
 class JournalService {
   static const String url = "http://192.168.0.15:3000/";
   static const String resource = "journals/";
