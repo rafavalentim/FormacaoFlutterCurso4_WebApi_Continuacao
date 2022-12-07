@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_webapi_second_course/screens/login_screen/login_screen.dart';
+import 'package:flutter_webapi_second_course/services/journal_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'models/journal.dart';
 import 'screens/add_journal_screen/add_journal_screen.dart';
@@ -6,6 +8,9 @@ import 'screens/home_screen/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
+
+  JournalService service = JournalService();
+
 }
 
 class MyApp extends StatelessWidget {
@@ -28,9 +33,10 @@ class MyApp extends StatelessWidget {
         ),
         textTheme: GoogleFonts.bitterTextTheme(),
       ),
-      initialRoute: "home",
+      initialRoute: "login",
       routes: {
         "home": (context) => const HomeScreen(),
+        "login": (context) => LoginScreen(),
       },
       onGenerateRoute: (routeSettings) {
         if (routeSettings.name == "add-journal") {

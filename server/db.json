@@ -4,6 +4,11 @@
       "email": "oprota@gmail.com",
       "password": "$2a$10$2qROKVXekRc/ePnGIbxDC.45uExz6nzlepuJdkgC69cUGPgpDC9Ay",
       "id": 1
+    },
+    {
+      "email": "Rafa.valentim@gmail.com",
+      "password": "$2a$10$5JhKbthSEn.pDYF1TkNzjOy8JsFVSCpfu1RHSa/t/IOePJiehC/Va",
+      "id": 2
     }
   ],
   "learnhttp": {},
