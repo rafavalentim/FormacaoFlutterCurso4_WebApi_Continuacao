@@ -61,18 +61,18 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void refresh() async {
-    List<Journal> listJournal = await _journalService.getAll();
-
-    setState(() {
-      database = {};
-      for (Journal journal in listJournal) {
-        database[journal.id] = journal;
-      }
-
-      if (_listScrollController.hasClients) {
-        final double position = _listScrollController.position.maxScrollExtent;
-        _listScrollController.jumpTo(position);
-      }
-    });
-  }
+  //   List<Journal> listJournal = await _journalService.getAll();
+  //
+  //   setState(() {
+  //     database = {};
+  //     for (Journal journal in listJournal) {
+  //       database[journal.id] = journal;
+  //     }
+  //
+  //     if (_listScrollController.hasClients) {
+  //       final double position = _listScrollController.position.maxScrollExtent;
+  //       _listScrollController.jumpTo(position);
+  //     }
+  //   });
+   }
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http_interceptor/http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'http_interceptors.dart';
 
 class AuthService {
@@ -31,10 +32,11 @@ class AuthService {
 
       throw HttpException(response.body);
     }
+    saveUserInfos(response.body);
     return true;
   }
 
-  register({required String email, required String password}) async {
+  Future<bool>register({required String email, required String password}) async {
 
     http.Response response = await client.post(
         Uri.parse('${url}register'),
@@ -44,13 +46,34 @@ class AuthService {
         }
     );
 
-    if(response.statusCode != 200){
+    if(response.statusCode != 201){
       throw HttpException(response.body);
-    }else{
-
     }
-
+    saveUserInfos(response.body);
+    return true;
   }
+
+  saveUserInfos(String body) async{
+    Map<String, dynamic> map = json.decode(body);
+
+    //Acessando o token
+    String token = map["accessToken"];
+    String email = map["user"]["email"];
+    int id = map["user"]["id"];
+
+    //print("$token\n$email\n$id");
+
+    // Instanciando um SharedPreferences para armazenar os dados do usuário.
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("accessToken", token);
+    prefs.setString("email", email);
+    prefs.setInt("id", id);
+
+    String? tokenSalvo = prefs.getString("accessToken");
+
+    print(tokenSalvo);
+  }
+
 }
 
 class UserNotFindException implements Exception{}
