@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_webapi_second_course/screens/commom/confirmation_dialog.dart';
 
 import '../../services/auth_service.dart';
+import '../commom/exception_dialog.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -19,7 +22,7 @@ class LoginScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         margin: const EdgeInsets.all(32),
         decoration:
-            BoxDecoration(border: Border.all(width: 8), color: Colors.white),
+        BoxDecoration(border: Border.all(width: 8), color: Colors.white),
         child: Form(
           child: Center(
             child: SingleChildScrollView(
@@ -72,27 +75,38 @@ class LoginScreen extends StatelessWidget {
   login(BuildContext context) async {
     String email = _emailController.text;
     String password = _passwordController.text;
-    try {
-      service.login(email: email, password: password).then((result){
-        if(result){
+
+    service.login(email: email, password: password).then(
+          (result) {
+        if (result) {
           Navigator.pushReplacementNamed(context, "home");
         }
-      });
-    } on UserNotFindException {
-      showConfirmationDialog(
-        context,
-        content:
-            "Deseja criar um novo usuário usando o e-mail $email e a senha inserida?",
-        affirmativeOption: "Criar",
-      ).then((value){
-        if(value != null && value){
-          service.register(email: email, password: password).then((result){
-            if(result){
-              Navigator.pushReplacementNamed(context, "home");
-            }
-          });
+      },
+    ).catchError(
+      test: (error) => error is HttpException,
+          (error) {
+        var innerError = error as HttpException;
+        showExceptionDialog(context, content: innerError.message);
+      },
+
+    ).catchError(
+        test: (error) => error is UserNotFindException,
+            (error) {
+                showConfirmationDialog(
+                  context,
+                  content:
+                  "Deseja criar um novo usuário usando o e-mail $email e a senha inserida?",
+                  affirmativeOption: "Criar",
+                ).then((value) {
+                  if (value != null && value) {
+                    service.register(email: email, password: password).then((result) {
+                      if (result) {
+                        Navigator.pushReplacementNamed(context, "home");
+                      }
+                    });
+                  }
+                });
         }
-      });
-    }
+    );
   }
 }

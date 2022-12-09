@@ -53,39 +53,52 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: (userId != null && userToken != null) ?
-      ListView(
-        controller: _listScrollController,
-        children: generateListJournalCards(
-          windowPage: windowPage,
-          currentDay: currentDay,
-          database: database,
-          refreshFunction: refresh,
-          userId: userId!,
-          token: userToken!,
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              onTap: () {
+                logout();
+              },
+              title: const Text("Sair"),
+              leading: const Icon(Icons.logout),
+            ),
+          ],
         ),
-      ) : const Center(child: CircularProgressIndicator(),),
+      ),
+      body: (userId != null && userToken != null)
+          ? ListView(
+              controller: _listScrollController,
+              children: generateListJournalCards(
+                windowPage: windowPage,
+                currentDay: currentDay,
+                database: database,
+                refreshFunction: refresh,
+                userId: userId!,
+                token: userToken!,
+              ),
+            )
+          : const Center(
+              child: CircularProgressIndicator(),
+            ),
     );
   }
 
-  void refresh(){
-
-    SharedPreferences.getInstance().then((prefs){
-
+  void refresh() {
+    SharedPreferences.getInstance().then((prefs) {
       String? token = prefs.getString("accessToken");
       String? email = prefs.getString("email");
       int? id = prefs.getInt("id");
 
-      if(token != null && email != null && id != null){
-
-        setState((){
+      if (token != null && email != null && id != null) {
+        setState(() {
           userId = id;
           userToken = token;
         });
 
-        _journalService.getAll(id: id.toString(), token: token).then((List<Journal> listJournal) {
-
-          if(listJournal.isNotEmpty){
+        _journalService
+            .getAll(id: id.toString(), token: token)
+            .then((List<Journal> listJournal) {
 
             setState(() {
               database = {};
@@ -94,27 +107,23 @@ class _HomeScreenState extends State<HomeScreen> {
               }
 
               if (_listScrollController.hasClients) {
-                final double position = _listScrollController.position
-                    .maxScrollExtent;
+                final double position =
+                    _listScrollController.position.maxScrollExtent;
                 _listScrollController.jumpTo(position);
               }
             });
-
-          }else{
-
-            Navigator.pushReplacementNamed(context, "login");
-
-          }
-
-
-
         });
-
-      }else{
+      } else {
         Navigator.pushReplacementNamed(context, "login");
       }
-
     });
+  }
 
-   }
+  logout(){
+    SharedPreferences.getInstance().then((prefs){
+      prefs.clear();
+      Navigator.pushReplacementNamed(context, "login");
+    });
+  }
+
 }

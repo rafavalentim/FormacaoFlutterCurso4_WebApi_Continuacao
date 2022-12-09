@@ -7,8 +7,13 @@
     },
     {
       "email": "Rafa.valentim@gmail.com",
-      "password": "$2a$10$5JhKbthSEn.pDYF1TkNzjOy8JsFVSCpfu1RHSa/t/IOePJiehC/Va",
+      "password": "$2a$10$2qROKVXekRc/ePnGIbxDC.45uExz6nzlepuJdkgC69cUGPgpDC9Ay",
       "id": 2
+    },
+    {
+      "email": "a@b.c",
+      "password": "$2a$10$AdY7zE7NFaTT.m7vQ1FdcewmXzqFE2q0omEICdZnBIJXhAJYHfdt.",
+      "id": 3
     }
   ],
   "learnhttp": {},
@@ -26,6 +31,20 @@
       "created_at": "2022-12-09 19:04:05.992813",
       "updated_at": "2022-12-09 19:04:05.992813",
       "userId": 1
+    },
+    {
+      "id": "dfe2d1e0-780f-11ed-b568-ef7cfd531827",
+      "content": "Just testing.",
+      "created_at": "2022-12-05 19:21:41.767011",
+      "updated_at": "2022-12-05 19:21:41.767011",
+      "userId": 2
+    },
+    {
+      "id": "2bd07d00-781a-11ed-8e1b-41d2d14e1c9e",
+      "content": "Hey! I am a new user here!",
+      "created_at": "2022-12-08 20:35:24.286301",
+      "updated_at": "2022-12-08 20:35:24.286301",
+      "userId": 3
     }
   ]
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http_interceptor/http/http.dart';
 
@@ -36,10 +37,13 @@ class JournalService {
       body: journalJSON,
     );
 
-    if (response.statusCode == 201) {
-      return true;
+    if (response.statusCode != 201) {
+      if(json.decode(response.body) == "jwt expired"){
+        throw TokenNotValidException();
+      }
+      throw HttpException(response.body);
     }
-    return false;
+    return true;
   }
 
   Future<bool> edit(String id, Journal journal, String token) async {
@@ -54,10 +58,13 @@ class JournalService {
       body: journalJSON,
     );
 
-    if (response.statusCode == 200) {
-      return true;
+    if (response.statusCode != 200) {
+      if(json.decode(response.body) == "jwt expired"){
+        throw TokenNotValidException();
+      }
+      throw HttpException(response.body);
     }
-    return false;
+    return true;
   }
 
   Future<List<Journal>> getAll(
@@ -70,8 +77,11 @@ class JournalService {
 
     if (response.statusCode != 200) {
       //TODO: Criar uma exceção personalizada
-      //throw Exception();
-      return result;
+      if(json.decode(response.body) == "jwt expired"){
+        throw TokenNotValidException();
+      }
+      throw HttpException(response.body);;
+
     }
 
     List<dynamic> jsonList = json.decode(response.body);
@@ -88,9 +98,18 @@ class JournalService {
         headers: {"Authorization": "Bearer $token"},
         );
 
-        if (response.statusCode == 200) {
+        if (response.statusCode != 200) {
+          if(json.decode(response.body) == "jwt expired"){
+            throw TokenNotValidException();
+          }
+          throw HttpException(response.body);
+        }
         return true;
         }
-        return false;
-        }
     }
+
+    //Classes de exceção
+class TokenNotValidException implements Exception{
+
+
+}
