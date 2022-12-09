@@ -13,6 +13,7 @@ class JournalCard extends StatelessWidget {
   final DateTime showedDate;
   final Function refreshFunction;
   final int userId;
+  final String token;
 
   const JournalCard({
     Key? key,
@@ -20,6 +21,7 @@ class JournalCard extends StatelessWidget {
     required this.showedDate,
     required this.refreshFunction,
     required this.userId,
+    required this.token,
   }) : super(key: key);
 
   @override
@@ -173,7 +175,7 @@ class JournalCard extends StatelessWidget {
       ).then((value){
         if(value != null){
           if(value){
-              service.delete(journal!.id).then((value) {
+              service.delete(journal!.id, token).then((value) {
                   if (value) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

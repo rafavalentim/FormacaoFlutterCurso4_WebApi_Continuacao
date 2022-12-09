@@ -14,13 +14,6 @@
   "learnhttp": {},
   "journals": [
     {
-      "id": "04b2c1a0-7299-11ed-acf2-c71c9186b3c1",
-      "content": "I am drunk",
-      "created_at": "2022-12-05 20:08:52.100208",
-      "updated_at": "2022-12-05 20:08:52.100208",
-      "userId": 1
-    },
-    {
       "id": "2afff460-74ea-11ed-9eb7-fdf3e79abc8a",
       "content": "5th day of December… Day to pay all bills.",
       "created_at": "2022-12-07 19:08:17.494861",
@@ -28,10 +21,10 @@
       "userId": 1
     },
     {
-      "id": "937b9d20-7759-11ed-a595-e15db0431af4",
-      "content": "Let’s try again.",
-      "created_at": "2022-12-05 21:36:47.224534",
-      "updated_at": "2022-12-05 21:36:47.224534",
+      "id": "6b78cbe0-780d-11ed-b72a-c30ba3dcd55c",
+      "content": "Brazil lost World Soccer cup! LoL",
+      "created_at": "2022-12-09 19:04:05.992813",
+      "updated_at": "2022-12-09 19:04:05.992813",
       "userId": 1
     }
   ]
