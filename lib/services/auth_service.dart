@@ -28,6 +28,7 @@ class AuthService {
 
       switch(content){
         case "Cannot find user" : throw UserNotFindException();
+        case "jwt expired" : throw TokenExpiredException();
       }
 
       throw HttpException(response.body);
@@ -77,3 +78,4 @@ class AuthService {
 }
 
 class UserNotFindException implements Exception{}
+class TokenExpiredException implements Exception{}
