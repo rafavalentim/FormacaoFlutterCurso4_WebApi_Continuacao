@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../helpers/weekday.dart';
 import '../../models/journal.dart';
 import '../../services/journal_service.dart';
@@ -41,31 +42,41 @@ class AddJournalScreen extends StatelessWidget {
   }
 
   registerJournal(BuildContext context) async {
-    JournalService journalService = JournalService();
 
-    journal.content = _contentController.text;
+    SharedPreferences.getInstance().then((prefs){
 
-    if(isEditing){
+      String? token = prefs.getString("accessToken");
 
-      journalService.register(journal).then((value) {
-        if (value) {
-          Navigator.pop(context, DisposeStatus.success);
-        } else {
-          Navigator.pop(context, DisposeStatus.error);
+      if(token != null){
+
+        JournalService journalService = JournalService();
+
+        journal.content = _contentController.text;
+
+        if(isEditing){
+
+          journalService.register(journal, token).then((value) {
+            if (value) {
+              Navigator.pop(context, DisposeStatus.success);
+            } else {
+              Navigator.pop(context, DisposeStatus.error);
+            }
+          });
+
+        }else{
+
+          journalService.edit(journal.id, journal, token).then((value) {
+            if (value) {
+              Navigator.pop(context, DisposeStatus.success);
+            } else {
+              Navigator.pop(context, DisposeStatus.error);
+            }
+          });
         }
-      });
+      }
+    });
 
-    }else{
 
-      journalService.edit(journal.id, journal).then((value) {
-        if (value) {
-          Navigator.pop(context, DisposeStatus.success);
-        } else {
-          Navigator.pop(context, DisposeStatus.error);
-        }
-      });
-
-    }
 
 
 
