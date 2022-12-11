@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_webapi_second_course/services/webclient.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_interceptor/http/http.dart';
 
@@ -10,12 +11,10 @@ import 'http_interceptors.dart';
 //json-server-auth --watch -host SEU_IP_AQUI db.json -r routes.json
 
 class JournalService {
-  static const String url = "http://192.168.0.15:3000/";
-  static const String resource = "journals/";
 
-  http.Client client = InterceptedClient.build(
-    interceptors: [LoggingInterceptor()],
-  );
+  static const String resource = "journals/";
+  String url = WebClient.url;
+  http.Client client = WebClient().client;
 
   String getURL() {
     return "$url$resource";

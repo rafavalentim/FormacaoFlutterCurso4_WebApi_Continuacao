@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -107,6 +108,9 @@ class LoginScreen extends StatelessWidget {
                   }
                 });
         }
-    );
+    ).catchError( test: (error) => error is TimeoutException,
+        (error){
+            showExceptionDialog(context, content: "O servidor demorou para obter a resposta. Tente novamente.");
+        });
   }
 }
