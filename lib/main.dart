@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webapi_second_course/screens/login_screen/login_screen.dart';
-import 'package:flutter_webapi_second_course/services/journal_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'models/journal.dart';
@@ -12,9 +11,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool isLogged = await verifyToken();
   runApp(MyApp(isLogged: isLogged,));
-
-  JournalService service = JournalService();
-
 }
 
 Future<bool> verifyToken() async {
@@ -29,7 +25,7 @@ Future<bool> verifyToken() async {
 
 class MyApp extends StatelessWidget {
   final bool isLogged;
-  MyApp({Key? key, required this.isLogged}) : super(key: key);
+  const MyApp({Key? key, required this.isLogged}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

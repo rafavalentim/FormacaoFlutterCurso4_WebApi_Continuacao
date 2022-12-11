@@ -2,10 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_webapi_second_course/services/webclient.dart';
 import 'package:http/http.dart' as http;
-import 'package:http_interceptor/http/http.dart';
 
 import '../models/journal.dart';
-import 'http_interceptors.dart';
 
 //Comando para rodar o json server com as todas definidas no routes.json.
 //json-server-auth --watch -host SEU_IP_AQUI db.json -r routes.json
@@ -46,6 +44,9 @@ class JournalService {
   }
 
   Future<bool> edit(String id, Journal journal, String token) async {
+    //Atualizando a data de update
+    journal.updatedAt = DateTime.now();
+
     String journalJSON = json.encode(journal.toMap());
 
     http.Response response = await client.put(
@@ -79,7 +80,7 @@ class JournalService {
       if(json.decode(response.body) == "jwt expired"){
         throw TokenNotValidException();
       }
-      throw HttpException(response.body);;
+      throw HttpException(response.body);
 
     }
 

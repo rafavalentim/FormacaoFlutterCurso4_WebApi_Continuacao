@@ -2,10 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_webapi_second_course/services/webclient.dart';
-import 'package:http_interceptor/http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'http_interceptors.dart';
 
 class AuthService {
 
@@ -67,12 +65,7 @@ class AuthService {
     prefs.setString("accessToken", token);
     prefs.setString("email", email);
     prefs.setInt("id", id);
-
-    String? tokenSalvo = prefs.getString("accessToken");
-
-    print(tokenSalvo);
   }
-
 }
 
 class UserNotFindException implements Exception{}
